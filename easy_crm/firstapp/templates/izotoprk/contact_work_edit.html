@@ -1,0 +1,13 @@
+{% extends 'izotoprk/base.html' %}
+{% load bootstrap4 %}
+{% block page %}
+
+              <form action="" method="post">         
+                {% csrf_token %}
+                {% bootstrap_form contact_work_form %}
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                      <button type="submit" class="btn btn-primary" value="Отправить">Применить</button>
+                  </div>  
+              </form>
+{% endblock %}

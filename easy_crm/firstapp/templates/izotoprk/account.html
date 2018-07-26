@@ -1,0 +1,97 @@
+{% extends 'izotoprk/base.html' %}
+{% load bootstrap4 %}
+{% block page %}
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <br/>
+                <div class="card">
+                  <div class="card-header bg-dark text-white">
+                    Профиль
+                  </div>
+                  <div class="card-body">
+                    <div class="col media">
+                        <img class="mr-3 rounded-circle" src="{{ MEDIA_URL }}{{ user.account.avatar }}" width="100" height="100" alt="logo">
+                        <div class="media-body">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Ф.И.О.: {{ user.account.account_fio }}</li>
+                          <li class="list-group-item">Должность: {{ user.account.position }}</li>
+                          <li class="list-group-item">Телефон: {{ user.account.phone_number }}</li>
+                          <li class="list-group-item">email: {{ user.account.email }}</li>
+                          <li class="list-group-item">Хобби: {{ user.account.hobby }}</li>
+                          <li class="list-group-item">Дата рождения: {{ user.account.birth_date }}</li>
+                        </ul>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+          </div>
+          <div class="col">
+            <br/>
+              <div class="card">
+                <div class="card-header bg-dark text-white">
+                  Задачи
+                </div>
+                <div>
+                    <table id="works" class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Работа</th>
+                          <th scope="col">Статус</th>
+                        </tr>
+                      </thead>  
+                      <tbody>
+                        {% for companyobjectwork in tasks %}
+                         <tr>
+                          <td><a href="{% url 'izotoprk-work' work_id=companyobjectwork.id %}">{{ companyobjectwork.work }}</a></td>
+                          <td>{{ companyobjectwork.status }}</td>
+                        </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table>
+                      <br/>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <br/>
+              <div class="card">
+                  <div class="card-header bg-white text-white">
+                      тут будет чат
+                  </div>
+                  <div>
+                  </div>
+              </div>
+                    
+                  </div>
+          <div class="col">
+            <br/>
+              <div class="card">
+                <div class="card-header bg-white text-white">
+                    тут будут напоминания 
+                </div>
+                <div>
+                </div>
+              </div>
+           </div>
+    </div>  
+  </div>-->
+  <script>
+    $(function(){
+      $("#works").dataTable( {
+      "scrollY":        "230px",
+      "scrollCollapse": true,
+      "paging":         false,
+      "searching": false,
+      "lengthChange": false,
+      "pageLength": 4,
+      "info": false
+      });
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,15 @@
+version: '3'
+services:
+    web:
+        build: ./easy_crm
+        command: python ./manage.py runserver 0.0.0.0:8000
+        ports:
+        - 8000:8000
+        volumes:
+        - ./easy_crm:/easy_crm
+        depends_on:
+        - db
+        environment:
+          DATABASE_URL: postgres://postgres@db/postgres
+    db:
+        image: postgres:9.6.9

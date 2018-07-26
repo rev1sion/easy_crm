@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block sidebar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark container">
+  <a href="{% url 'izotoprk-account' %}" class="navbar-brand">
+    <img src="/static/fonts/home2.png" width="30" height="30" alt="logo">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbar1">
+    <ul class="navbar-nav mr-auto active">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'izotoprk-companys' %}">Организации</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'izotoprk-companys-objects' %}">Объекты</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'izotoprk-in-work' %}">В работе</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'izotoprk-on-payment' %}">На оплате</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'izotoprk-documents' %}">Документы</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'izotoprk-co-workers' %}">Сотрудники</a>
+      </li>
+    </ul>
+    <a href="{% url 'izotoprk-sign-out' %}">Выйти</a>
+</nav>
+{% endblock %}

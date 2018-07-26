@@ -1,0 +1,232 @@
+{% extends 'izotoprk/base.html' %}
+{% load bootstrap4 %}
+{% block page %}
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <br/>
+                <div class="card">
+                  <div class="card-header bg-dark text-white">
+                    Объект
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">Организация: <a href="{% url 'izotoprk-companys-detail' company_id=objects.company.id %}">{{ objects.company.name }}</a></p>
+                    <p class="card-text">Объект: {{ objects.comment }}</p>
+                    <p class="card-text">Адрес объекта: {{ objects.address }}</p>
+                  </div>
+                  <div class="card-footer" style="padding: 3px 12px">
+                    <a class="btn btn-primary btn-sm" href="{% url 'izotoprk-object-edit' object_id=objects.id %}" role="button" style="float: right">
+                      Изменить
+                    </a>
+                  </div>
+                </div>
+          </div>
+          <div class="col">
+            <br/>
+              <div class="card">
+                <div class="card-header bg-dark text-white">
+                  Работы
+                </div>
+                <div class="card-body" style="padding: 0px 0px 0px 0px">
+                    <table id="works" class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Работа</th>
+                          <th scope="col">Статус</th>
+                        </tr>
+                      </thead>  
+                      <tbody>
+                          {% for work in works %}
+                          <tr> 
+                              <td><a href="{% url 'izotoprk-work' work_id=work.id %}">{{ work.work }}</a></td>
+                              <td>{{ work.status }}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+                <div class="card-footer" style="padding: 3px 12px">
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddWork" style="float: right">
+                      Добавить
+                  </button>
+                 </div>
+              </div>
+              <!-- Modal -->
+                  <div class="modal fade" id="AddWork" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Добавить контакт</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="" method="post">         
+                            {% csrf_token %}
+                            {% bootstrap_form work_form %}
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                <button type="submit" class="btn btn-primary" value="Отправить">Добавить</button>
+                              </div>  
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <br/>
+              <div class="card">
+                  <div class="card-header bg-dark text-white">
+                      Контактные лица
+                  </div>
+                  <div class="card-body" style="padding: 0px 0px 0px 0px">
+                    <table id="contacts" class="table table-hover">
+                        <thead>
+                            <tr>
+                              <th scope="col">Имя</th>
+                              <th scope="col">Телефон</th>
+                              <th scope="col">Должность</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for cont in contacts_object %}
+                          <tr>
+                            <td>{{ cont.object_contact.fio }}</td>
+                            <td>{{ cont.object_contact.tel }}</td>
+                            <td>{{ cont.object_contact.position }}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                  </div>
+                  <div class="card-footer" style="padding: 3px 12px">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddContact" style="float: right">
+                        Добавить
+                    </button>
+                   </div>
+              </div>
+                    <!-- Modal -->
+                        <div class="modal fade" id="AddContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Добавить контакт</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <form action="" method="post">         
+                                  {% csrf_token %}
+                                  {% bootstrap_form object_contact_form %}
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                        <button type="submit" class="btn btn-primary" value="Отправить">Добавить</button>
+                                    </div>  
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+          <div class="col">
+            <br/>
+              <div class="card">
+                <div class="card-header bg-dark text-white">
+                    Комментарии
+                </div>
+                <div class="card-body" style="padding: 0px 0px 0px 0px">
+                <table id="comments" class="table table-hover">
+                  <thead>
+                      <tr>
+                        <th scope="col">Комментарии:</th> 
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for comm in comments %}
+                    <tr>
+                      <td>
+                        <code style="font-size: 14px; color: #8f8f8f"><p class="font-monospace font-italic">{{ comm.owner.account.account_fio }} {{ comm.created }}</p></code>
+                        <pre>{{ comm.text }}</pre>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                </div>
+                <div class="card-footer" style="padding: 3px 12px">
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddComment" style="float: right">
+                    Добавить
+                  </button>
+                 </div>  
+              </div>
+            </div>
+                    <!-- Modal -->
+                        <div class="modal fade" id="AddComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Добавить контакт</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                  <form action="" method="post">
+                                    {% csrf_token %}
+                                    {% bootstrap_form comment_form %}
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                        <button type="submit" class="btn btn-primary" value="Отправить">Добавить</button>
+                                    </div>  
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+            </div>  
+          </div>
+        </div>
+      </div>
+      <br/>
+  </div>
+  <script>
+    $(function(){
+      $("#contacts").dataTable( {
+      "scrollY":        "230px",
+      "scrollCollapse": true,
+      "paging":         false,
+      "searching": false,
+      "lengthChange": false,
+      "pageLength": 4,
+      "info": false
+      });
+
+      $("#works").dataTable( {
+      "scrollY":        "230px",
+      "scrollCollapse": true,
+      "paging":         false,
+      "searching": false,
+      "lengthChange": false,
+      "pageLength": 4,
+      "info": false
+      });
+
+      $("#comments").dataTable( {
+      "scrollY":        "230px",
+      "scrollCollapse": true,
+      "paging":         false,
+      "searching": false,
+      "lengthChange": false,
+      "pageLength": 4,
+      "info": false
+      });
+    })
+  </script>
+{% endblock %}

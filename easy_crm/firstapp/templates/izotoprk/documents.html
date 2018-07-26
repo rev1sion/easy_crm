@@ -1,0 +1,34 @@
+{% extends 'izotoprk/base.html' %}
+{% load bootstrap4 %}
+{% block page %}
+<br/>
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title text-center text-dark">
+      Документы
+    </h3>
+  </div>
+  <br/>
+  <div class="panel-body">
+    <table id="documents" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Документы:</th>
+          </tr>
+        </thead>  
+        <tbody>
+           {% for documentwork in documents %}
+            <tr> 
+                <td><a href="{{ documentwork.file.url }}" target="_blank">{{ documentwork.filename }}</a></td>
+            </tr>
+           {% endfor %}
+          </tbody>
+        </table>
+  </div>
+</div>
+<script>
+$(function(){
+  $("#documents").dataTable();
+})
+</script>
+{% endblock %}

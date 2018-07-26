@@ -1,0 +1,43 @@
+{% extends 'izotoprk/base.html' %}
+
+{% block page %}
+<br/>
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title text-center text-dark">
+      В работе
+    </h3>
+  </div>
+  <br/>
+  <div class="panel-body">
+    <table id="in_work" class="table table-hover table-bordered">
+      <thead class="thead-dark">
+        <tr class="bg-light text-dark">
+          <th scope="col">Работа</th>
+          <th scope="col">Объект</th>
+          <th scope="col">Ответственный</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for companyobjectwork in in_work %}
+         <tr>
+           <td><a href="{% url 'izotoprk-work' work_id=companyobjectwork.id %}">{{ companyobjectwork.work }}</a></td>
+           <td>{{ companyobjectwork.company_object }}</td>
+           <td>{{ companyobjectwork.user_work.account.account_fio }}</td>
+         </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  $(function(){
+    $("#in_work").dataTable( {
+      "searching": false,
+      "lengthChange": false,
+      "pageLength": 4,
+      "info": false
+    });
+  })
+</script>
+{% endblock %}
